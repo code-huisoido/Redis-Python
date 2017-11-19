@@ -21,4 +21,5 @@ print r.get('new-string-key')
 # 设置二进制位串 00100001 => 33
 r.setbit('another-key', 2, 1)
 r.setbit('another-key', 7, 1)
+print r.getbit('another-key', 6)
 print r.get('another-key')
