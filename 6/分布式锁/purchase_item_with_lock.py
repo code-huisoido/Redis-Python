@@ -3,8 +3,8 @@
 import redis
 import uuid
 import time
-import acquire_lock
-from acquire_lock import acquire_lock
+import acquire_lock_with_timeout
+from acquire_lock_with_timeout import acquire_lock_with_timeout
 import release_lock
 from release_lock import release_lock
 
@@ -19,7 +19,9 @@ def purchase_item_with_lock(conn, buyerid, itemid, sellerid):
     #market = "market:"
     market = "market:%s"%item
 
-    locked = acquire_lock(conn, market)
+    # 这里有两种选择，主要是第二种加了超时限制
+    #locked = acquire_lock(conn, market)
+    locked = acquire_lock_with_timeout(conn, market)
     if not locked:
         return False
 
